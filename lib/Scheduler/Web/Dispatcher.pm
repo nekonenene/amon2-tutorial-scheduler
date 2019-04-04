@@ -48,6 +48,17 @@ post '/post' => sub {
     return $c->redirect('/');
 };
 
+post '/schedules/:id/delete' => sub {
+    my ($c, $args) = @_;
+    my $id = $args->{id};
+
+    $c->db->delete(schedules => {
+        id => $id,
+    });
+
+    return $c->redirect('/');
+};
+
 post '/reset_counter' => sub {
     my $c = shift;
     $c->session->remove('counter');
