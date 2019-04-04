@@ -1,8 +1,11 @@
 package Scheduler::Web::Dispatcher;
+
 use strict;
 use warnings;
 use utf8;
+
 use Amon2::Web::Dispatcher::RouterBoom;
+use Data::Dumper;
 
 any '/' => sub {
     my ($c) = @_;
@@ -24,6 +27,17 @@ post '/account/logout' => sub {
     my ($c) = @_;
     $c->session->expire();
     return $c->redirect('/');
+};
+
+# curl -X POST "http://127.0.0.1:5000/api/hello?name=Kanako"
+post '/api/hello' => sub {
+    my ($c) = shift;
+    print Dumper($c->req->parameters);
+    my $name = $c->req->parameters->{name};
+
+    return $c->render_json(+{
+        message => "Hello, $name!",
+    });
 };
 
 1;
