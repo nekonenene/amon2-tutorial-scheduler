@@ -1,6 +1,7 @@
 .PHONY: init
 init:
 	carton install
+	sqlite3 db/development.db < sql/sqlite.sql
 
 .PHONY: run
 run:
