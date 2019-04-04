@@ -21,7 +21,7 @@
 <hr />
 
 : for $schedules -> $schedule {
-    <: $schedule.title :>（<: $schedule.date :>）<br>
+    <: $schedule.title :>（<: $schedule.date.strftime("%Y/%m/%d") :>）<br>
 : }
 
 <hr />
