@@ -5,6 +5,7 @@ requires 'DBD::SQLite', '1.33';
 requires 'HTML::FillInForm::Lite', '1.11';
 requires 'HTTP::Session2', '1.03';
 requires 'JSON', '2.50';
+requires 'Log::Minimal';
 requires 'Module::Functions', '2';
 requires 'Plack::Middleware::ReverseProxy', '0.09';
 requires 'Router::Boom', '0.06';
