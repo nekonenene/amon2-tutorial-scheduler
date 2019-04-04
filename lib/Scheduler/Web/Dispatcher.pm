@@ -16,7 +16,11 @@ any '/' => sub {
     $counter++;
     $c->session->set('counter' => $counter);
 
-    my @schedules = $c->db->search('schedules');
+    my @schedules = $c->db->search(
+        'schedules',
+        {},
+        {order_by => 'id DESC'},
+    );
 
     return $c->render('index.tx', {
         counter => $counter,
