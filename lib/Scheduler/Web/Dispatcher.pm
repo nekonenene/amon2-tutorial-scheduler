@@ -6,15 +6,46 @@ use utf8;
 
 use Amon2::Web::Dispatcher::RouterBoom;
 use Data::Dumper;
+use Time::Piece;
+use Log::Minimal;
 
 any '/' => sub {
     my ($c) = @_;
+
     my $counter = $c->session->get('counter') || 0;
     $counter++;
     $c->session->set('counter' => $counter);
+
+    my @schedules = $c->db->search('schedules');
+
     return $c->render('index.tx', {
         counter => $counter,
+        schedules => \@schedules,
     });
+};
+
+post '/post' => sub {
+    my ($c) = @_;
+    my $title = $c->req->parameters->{title};
+    my $date = $c->req->parameters->{date};
+
+    infof $date;
+
+    if ($title eq '' || $date eq '') {
+        return $c->redirect('/');
+    }
+
+    my $date_epoch = Time::Piece->strptime($date, '%Y-%m-%d')->epoch;
+
+    infof $title;
+    infof $date_epoch;
+
+    $c->db->insert(schedules => {
+        title => $title,
+        date  => $date_epoch,
+    });
+
+    return $c->redirect('/');
 };
 
 post '/reset_counter' => sub {

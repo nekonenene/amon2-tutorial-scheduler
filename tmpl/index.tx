@@ -9,14 +9,20 @@
 <form class="form-inline" method="POST" action="<: uri_for('/post') :>">
     <div class="form-group">
         <label>タイトル</label>
-        <input type="text" class="form-control" name="title" placeholder="例: Perlの勉強">
+        <input type="text" class="form-control" name="title" value="タスク">
     </div>
     <div class="form-group">
         <label>日付</label>
-        <input type="text" class="form-control" name="date" placeholder="例: 2015/03/10">
+        <input type="date" class="form-control" name="date" value="2001-01-01">
     </div>
     <button type="submit" class="btn btn-default">登録</button>
 </form>
+
+<hr />
+
+: for $schedules -> $schedule {
+    <: $schedule.title :>（<: $schedule.date :>）<br>
+: }
 
 <hr />
 
