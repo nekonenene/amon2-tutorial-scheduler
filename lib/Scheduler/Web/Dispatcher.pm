@@ -29,9 +29,9 @@ post '/account/logout' => sub {
     return $c->redirect('/');
 };
 
-# curl -X POST "http://127.0.0.1:5000/api/hello?name=Kanako"
+# curl -X POST "http://127.0.0.1:8013/api/hello?name=Kanako"
 post '/api/hello' => sub {
-    my ($c) = shift;
+    my ($c) = @_;
     print Dumper($c->req->parameters);
     my $name = $c->req->parameters->{name};
 
