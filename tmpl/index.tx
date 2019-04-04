@@ -20,9 +20,28 @@
 
 <hr />
 
-: for $schedules -> $schedule {
-    <: $schedule.title :>（<: $schedule.date.strftime("%Y/%m/%d") :>）<br>
-: }
+<table class="table">
+    <thead>
+        <tr>
+            <th>タイトル</th>
+            <th>日時</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    : for $schedules -> $schedule {
+        <tr>
+            <td><: $schedule.title :></td>
+            <td><: $schedule.date.strftime("%Y/%m/%d") :></td>
+            <td>
+                <form method="POST" action="<: uri_for('/schedules/'~$schedule.id~'/delete') :>">
+                    <button type="submit" class="btn btn-danger">削除</button>
+                </form>
+            </td>
+        </tr>
+    : }
+    </tbody>
+</table>
 
 <hr />
 
@@ -41,7 +60,7 @@
 <p>You seen this page <: $counter :> times.</p>
 
 <form method="post" action="/reset_counter">
-    <input type="submit" name="Reset counter." class="btn btn-default">
+    <button type="submit" name="Reset counter." class="btn btn-default">リセット</button>
 </form>
 
 : }
